@@ -1,24 +1,24 @@
 "use strict"
-export function booksReducers(state={books: [{
-      _id: 1,
-      title: "Rasoi ki kitaab",
-      description: 'hohoho',
-      price: 6
-    },{
-      _id: 2,
-      title: "Rasoi ki doosri kitaab",
-      description: 'hohoho',
-      price: 8.9
-    },
-    ]
+export function booksReducers(state={books: []
   }, action){
   switch(action.type){
     case "GET_BOOK":
-    return {...state, books:[...state.books]}
+    return {...state, books:[...action.payload]}
     case "POST_BOOK":
     // let books = state.books.concat(action.payload);
     // return {books};
-    return {books: [...state.books, ...action.payload]}
+    return {
+      ...state,
+      books: [...state.books, ...action.payload],
+      msg: 'Saved! Click to continue',
+      style:'success',
+      validation:'success'
+    }
+    break;
+    case "POST_BOOK_REJECTED":
+    // let books = state.books.concat(action.payload);
+    // return {books};
+    return {...state, msg:'Pleas try again', style:'danger', validation:'error'}
     break;
     case "DELETE_BOOK":
     // Create a copy of the current array of books
@@ -50,6 +50,15 @@ export function booksReducers(state={books: [{
     return {books: [...currentBookToUpdate.slice(0, indexToUpdate), newBookToUpdate,
     ...currentBookToUpdate.slice(indexToUpdate+1)]}
     break;
+
+    case "RESET_BUTTON":
+    // let books = state.books.concat(action.payload);
+    // return {books};
+    return {...state, msg:null, style:'primary', validation:nulls}
+    break;
+
+
+
   }
   return state
 }

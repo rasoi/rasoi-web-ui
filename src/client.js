@@ -4,11 +4,12 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
-
+import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
 
 
 import {applyMiddleware, createStore} from 'redux';
 import {createLogger} from 'redux-logger';
+import thunk from 'redux-thunk';
 
 
 // IMPORT COMBINED REDUCERS
@@ -20,23 +21,30 @@ import {postBooks, deleteBooks, updateBooks} from './actions/booksActions';
 
 
 // STEP 1 create and store
-const middleware = applyMiddleware(createLogger());
+const middleware = applyMiddleware(thunk, createLogger());
 const store = createStore(reducers, middleware);
 
 
 import BooksList from './components/pages/booksList';
-import Menu from './components/menu';
-import Footer from "./components/footer";
+import Cart from './components/pages/cart';
+import RecipeForm from './components/pages/recipeForm';
+import Main from './main';
+
+const Routes = (
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={Main}>
+        <IndexRoute component={BooksList}/>
+        <Route path="/admin" component={RecipeForm}/>
+        <Route path="/cart" component={Cart}/>
+      </Route>
+    </Router>
+  </Provider>
+)
 
 render(
-  <Provider store={store}>
-    <div>
-      <Menu/>
-      <BooksList/>
-      <Footer/>
-    </div>
-
-  </Provider>, document.getElementById('app')
+  Routes,
+  document.getElementById('app')
 );
 
 // STEP 2 create and dispatch actions
