@@ -2,10 +2,10 @@
 import {combineReducers} from 'redux';
 
 // IMPORT REDUCERS TO BE COMBINED
-import {booksReducers} from './booksReducers';
+import {recipeReducers} from './recipeReducers';
 import {cartReducers} from './cartReducers';
-// HERE COMBINE THE booksReducers
+// HERE COMBINE THE recipeReducers
 export default combineReducers({
-  books: booksReducers,
+  books: recipeReducers,
   cart: cartReducers
 })

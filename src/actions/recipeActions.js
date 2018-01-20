@@ -40,10 +40,6 @@ export function deleteBooks(id) {
         dispatch({type: "DELETE_BOOK_REJECTED", payload:err})
       })
   }
-  // return {
-  //   type:"DELETE_BOOK",
-  //   payload: book
-  // }
 }
 
 // UPDATE A BOOK

@@ -4,7 +4,7 @@ import {MenuItem, InputGroup, DropdownButton, Image, Col, Row, Well, Panel, Form
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {findDOMNode} from 'react-dom';
-import {postBooks, deleteBooks, getBooks, resetButton} from '../../actions/booksActions'
+import {postBooks, deleteBooks, getBooks, resetButton} from '../../actions/recipeActions'
 import axios from 'axios';
 
 class RecipeForm extends React.Component{
@@ -61,7 +61,7 @@ class RecipeForm extends React.Component{
   }
 
   render(){
-    const booksList = this.props.books.map(function(booksArr){
+    const recipesList = this.props.books.map(function(booksArr){
       return (
         <option key={booksArr._id}> {booksArr._id}</option>
       )
@@ -133,7 +133,7 @@ class RecipeForm extends React.Component{
                 <ControlLabel>Select a recipe id to delete </ControlLabel>
                 <FormControl ref="delete" componentClass="select" placeholder="select">
                   <option value="select">select</option>
-                    {booksList}
+                    {recipesList}
                 </FormControl>
               </FormGroup>
               <Button onClick={this.onDelete.bind(this)} bsStyle="danger">Delete Recipe</Button>

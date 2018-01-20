@@ -5592,83 +5592,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getBooks = getBooks;
-exports.postBooks = postBooks;
-exports.deleteBooks = deleteBooks;
-exports.updateBooks = updateBooks;
-exports.resetButton = resetButton;
-
-var _axios = __webpack_require__(86);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// GET A BOOK
-function getBooks(book) {
-
-  return function (dispatch) {
-    _axios2.default.get("/api/books").then(function (response) {
-      dispatch({ type: "GET_BOOK", payload: response.data });
-    }).catch(function (err) {
-      dispatch({ type: "GET_BOOKS_REJECTED", payload: err });
-    });
-  };
-}
-
-// POST A BOOK
-function postBooks(book) {
-  return function (dispatch) {
-    _axios2.default.post("/api/books", book).then(function (response) {
-      dispatch({ type: "POST_BOOK", payload: response.data });
-    }).catch(function (err) {
-      dispatch({ type: "POST_BOOK_REJECTED", payload: "there was an error posting new book" });
-    });
-  };
-}
-
-//  DELETE A BOOK
-function deleteBooks(id) {
-  return function (dispatch) {
-    _axios2.default.delete("/api/books/" + id).then(function (response) {
-      dispatch({ type: "DELETE_BOOK", payload: id });
-    }).catch(function (err) {
-      dispatch({ type: "DELETE_BOOK_REJECTED", payload: err });
-    });
-  };
-  // return {
-  //   type:"DELETE_BOOK",
-  //   payload: book
-  // }
-}
-
-// UPDATE A BOOK
-
-function updateBooks(book) {
-  return {
-    type: "UPDATE_BOOK",
-    payload: book
-  };
-}
-
-// RESET button and msg props
-
-function resetButton() {
-  return {
-    type: "RESET_BUTTON"
-  };
-}
-
-/***/ }),
+/* 88 */,
 /* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12978,7 +12902,7 @@ var _redux = __webpack_require__(23);
 
 var _reactDom = __webpack_require__(14);
 
-var _booksActions = __webpack_require__(88);
+var _recipeActions = __webpack_require__(422);
 
 var _axios = __webpack_require__(86);
 
@@ -13055,7 +12979,7 @@ var RecipeForm = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var booksList = this.props.books.map(function (booksArr) {
+      var recipesList = this.props.books.map(function (booksArr) {
         return _react2.default.createElement(
           'option',
           { key: booksArr._id },
@@ -13181,7 +13105,7 @@ var RecipeForm = function (_React$Component) {
                     { value: 'select' },
                     'select'
                   ),
-                  booksList
+                  recipesList
                 )
               ),
               _react2.default.createElement(
@@ -13209,7 +13133,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ postBooks: _booksActions.postBooks, deleteBooks: _booksActions.deleteBooks, getBooks: _booksActions.getBooks, resetButton: _booksActions.resetButton }, dispatch);
+  return (0, _redux.bindActionCreators)({ postBooks: _recipeActions.postBooks, deleteBooks: _recipeActions.deleteBooks, getBooks: _recipeActions.getBooks, resetButton: _recipeActions.resetButton }, dispatch);
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RecipeForm);
@@ -13519,11 +13443,11 @@ var _index2 = _interopRequireDefault(_index);
 
 var _cartActions = __webpack_require__(59);
 
-var _booksActions = __webpack_require__(88);
+var _recipeActions = __webpack_require__(422);
 
-var _booksList = __webpack_require__(277);
+var _home = __webpack_require__(424);
 
-var _booksList2 = _interopRequireDefault(_booksList);
+var _home2 = _interopRequireDefault(_home);
 
 var _cart = __webpack_require__(188);
 
@@ -13558,7 +13482,7 @@ var Routes = _react2.default.createElement(
     _react2.default.createElement(
       _reactRouter.Route,
       { path: '/', component: _main2.default },
-      _react2.default.createElement(_reactRouter.IndexRoute, { component: _booksList2.default }),
+      _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _recipeForm2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _cart2.default })
     )
@@ -13566,39 +13490,6 @@ var Routes = _react2.default.createElement(
 );
 
 (0, _reactDom.render)(Routes, document.getElementById('app'));
-
-// STEP 2 create and dispatch actions
-// store.dispatch(postBooks(
-//   [{
-//     id: 1,
-//     title: "Rasoi ki kitaab",
-//     description: 'hohoho',
-//     price: 6
-//   },{
-//     id: 2,
-//     title: "Rasoi ki doosri kitaab",
-//     description: 'hohoho',
-//     price: 8.9
-//   },
-//   ]
-// ))
-
-
-// // DELETE a book
-// store.dispatch(deleteBooks({id:1}))
-//
-//
-// // UPDATE a books
-// store.dispatch(updateBooks(
-//   {
-//     id:2,
-//     title:'rasoi kaise saaf karien'
-//   }
-// ))
-
-
-// CART actions
-// ADD to CART
 
 /***/ }),
 /* 190 */
@@ -35942,93 +35833,21 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(23);
 
-var _booksReducers = __webpack_require__(257);
+var _recipeReducers = __webpack_require__(423);
 
 var _cartReducers = __webpack_require__(258);
 
-// HERE COMBINE THE booksReducers
+// HERE COMBINE THE recipeReducers
 
 
 // IMPORT REDUCERS TO BE COMBINED
 exports.default = (0, _redux.combineReducers)({
-  books: _booksReducers.booksReducers,
+  books: _recipeReducers.recipeReducers,
   cart: _cartReducers.cartReducers
 });
 
 /***/ }),
-/* 257 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-exports.booksReducers = booksReducers;
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function booksReducers() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { books: []
-  };
-  var action = arguments[1];
-
-  switch (action.type) {
-    case "GET_BOOK":
-      return _extends({}, state, { books: [].concat(_toConsumableArray(action.payload)) });
-    case "POST_BOOK":
-      // let books = state.books.concat(action.payload);
-      // return {books};
-      return _extends({}, state, {
-        books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)),
-        msg: 'Saved! Click to continue',
-        style: 'success',
-        validation: 'success'
-      });
-      break;
-    case "POST_BOOK_REJECTED":
-      // let books = state.books.concat(action.payload);
-      // return {books};
-      return _extends({}, state, { msg: 'Pleas try again', style: 'danger', validation: 'error' });
-      break;
-    case "DELETE_BOOK":
-      // Create a copy of the current array of books
-      var currentBookToDelete = [].concat(_toConsumableArray(state.books));
-      // Determine index
-      var indexToDelete = currentBookToDelete.findIndex(function (book) {
-        return book._id.toString() === action.payload;
-      });
-      // use slice to remove the book at the specified indexToDelete
-      return { books: [].concat(_toConsumableArray(currentBookToDelete.slice(0, indexToDelete)), _toConsumableArray(currentBookToDelete.slice(indexToDelete + 1))) };
-      break;
-    case "UPDATE_BOOK":
-      // Create a copy of the current array of books
-      var currentBookToUpdate = [].concat(_toConsumableArray(state.books));
-      // Determine index
-      var indexToUpdate = currentBookToUpdate.findIndex(function (book) {
-        return book._id === action.payload._id;
-      });
-      var newBookToUpdate = _extends({}, currentBookToUpdate[indexToUpdate], {
-        title: action.payload.title
-        // use slice to remove the book at the specified indexToDelete
-      });return { books: [].concat(_toConsumableArray(currentBookToUpdate.slice(0, indexToUpdate)), [newBookToUpdate], _toConsumableArray(currentBookToUpdate.slice(indexToUpdate + 1))) };
-      break;
-
-    case "RESET_BUTTON":
-      // let books = state.books.concat(action.payload);
-      // return {books};
-      return _extends({}, state, { msg: null, style: 'primary', validation: nulls });
-      break;
-
-  }
-  return state;
-}
-
-/***/ }),
+/* 257 */,
 /* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -36986,179 +36805,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 277 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(34);
-
-var _redux = __webpack_require__(23);
-
-var _booksActions = __webpack_require__(88);
-
-var _reactBootstrap = __webpack_require__(49);
-
-var _cuisineType = __webpack_require__(417);
-
-var _cuisineType2 = _interopRequireDefault(_cuisineType);
-
-var _recipeForm = __webpack_require__(187);
-
-var _recipeForm2 = _interopRequireDefault(_recipeForm);
-
-var _cart = __webpack_require__(188);
-
-var _cart2 = _interopRequireDefault(_cart);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BooksList = function (_React$Component) {
-  _inherits(BooksList, _React$Component);
-
-  function BooksList() {
-    _classCallCheck(this, BooksList);
-
-    return _possibleConstructorReturn(this, (BooksList.__proto__ || Object.getPrototypeOf(BooksList)).apply(this, arguments));
-  }
-
-  _createClass(BooksList, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      // Dispatch an action
-      this.props.getBooks();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var booksList = this.props.books.map(function (booksArr) {
-        return _react2.default.createElement(
-          _reactBootstrap.Col,
-          { xs: 12, sm: 6, md: 4, key: booksArr._id },
-          _react2.default.createElement(_cuisineType2.default, { className: 'cuisineWell',
-            _id: booksArr._id,
-            title: booksArr.title,
-            description: booksArr.description,
-            image: booksArr.image,
-            price: booksArr.price
-          })
-        );
-      });
-      return _react2.default.createElement(
-        _reactBootstrap.Grid,
-        null,
-        _react2.default.createElement(
-          _reactBootstrap.Row,
-          null,
-          _react2.default.createElement(
-            _reactBootstrap.Carousel,
-            null,
-            _react2.default.createElement(
-              _reactBootstrap.Carousel.Item,
-              null,
-              _react2.default.createElement('img', { width: 900, height: 500, alt: '900x500', src: '/images/carousel/chinese-kitchen.jpg' }),
-              _react2.default.createElement(
-                _reactBootstrap.Carousel.Caption,
-                null,
-                _react2.default.createElement(
-                  'h3',
-                  null,
-                  'Second slide label'
-                ),
-                _react2.default.createElement(
-                  'p',
-                  null,
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                )
-              )
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.Carousel.Item,
-              null,
-              _react2.default.createElement('img', { width: 900, height: 500, alt: '900x500', src: '/images/carousel/kadahi.jpg' }),
-              _react2.default.createElement(
-                _reactBootstrap.Carousel.Caption,
-                null,
-                _react2.default.createElement(
-                  'h3',
-                  null,
-                  'Third slide label'
-                ),
-                _react2.default.createElement(
-                  'p',
-                  null,
-                  'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
-                )
-              )
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.Carousel.Item,
-              null,
-              _react2.default.createElement('img', { width: 900, height: 500, alt: '900x500', src: '/images/carousel/traditional_indian_kitchen_by_the_neolith.jpg' }),
-              _react2.default.createElement(
-                _reactBootstrap.Carousel.Caption,
-                null,
-                _react2.default.createElement(
-                  'h3',
-                  null,
-                  'Second slide label'
-                ),
-                _react2.default.createElement(
-                  'p',
-                  null,
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                )
-              )
-            )
-          )
-        ),
-        _react2.default.createElement(
-          _reactBootstrap.Row,
-          { style: { marginTop: '15px' } },
-          _react2.default.createElement(_cart2.default, null)
-        ),
-        _react2.default.createElement(
-          _reactBootstrap.Row,
-          null,
-          booksList
-        )
-      );
-    }
-  }]);
-
-  return BooksList;
-}(_react2.default.Component);
-
-function mapStateToProps(state) {
-  return {
-    books: state.books.books
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ getBooks: _booksActions.getBooks }, dispatch);
-}
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BooksList);
-
-/***/ }),
+/* 277 */,
 /* 278 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -48719,8 +48366,8 @@ var Menu = function (_React$Component) {
             ),
             _react2.default.createElement(
               _reactBootstrap.NavItem,
-              { eventKey: 2, href: '/contacts' },
-              'Contact'
+              { eventKey: 2, href: '/recipe-results' },
+              'Recipe Results'
             )
           ),
           _react2.default.createElement(
@@ -48809,6 +48456,326 @@ var Footer = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Footer;
+
+/***/ }),
+/* 421 */,
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getBooks = getBooks;
+exports.postBooks = postBooks;
+exports.deleteBooks = deleteBooks;
+exports.updateBooks = updateBooks;
+exports.resetButton = resetButton;
+
+var _axios = __webpack_require__(86);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// GET A BOOK
+function getBooks(book) {
+
+  return function (dispatch) {
+    _axios2.default.get("/api/books").then(function (response) {
+      dispatch({ type: "GET_BOOK", payload: response.data });
+    }).catch(function (err) {
+      dispatch({ type: "GET_BOOKS_REJECTED", payload: err });
+    });
+  };
+}
+
+// POST A BOOK
+function postBooks(book) {
+  return function (dispatch) {
+    _axios2.default.post("/api/books", book).then(function (response) {
+      dispatch({ type: "POST_BOOK", payload: response.data });
+    }).catch(function (err) {
+      dispatch({ type: "POST_BOOK_REJECTED", payload: "there was an error posting new book" });
+    });
+  };
+}
+
+//  DELETE A BOOK
+function deleteBooks(id) {
+  return function (dispatch) {
+    _axios2.default.delete("/api/books/" + id).then(function (response) {
+      dispatch({ type: "DELETE_BOOK", payload: id });
+    }).catch(function (err) {
+      dispatch({ type: "DELETE_BOOK_REJECTED", payload: err });
+    });
+  };
+}
+
+// UPDATE A BOOK
+
+function updateBooks(book) {
+  return {
+    type: "UPDATE_BOOK",
+    payload: book
+  };
+}
+
+// RESET button and msg props
+
+function resetButton() {
+  return {
+    type: "RESET_BUTTON"
+  };
+}
+
+/***/ }),
+/* 423 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.recipeReducers = recipeReducers;
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function recipeReducers() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { books: []
+  };
+  var action = arguments[1];
+
+  switch (action.type) {
+    case "GET_BOOK":
+      return _extends({}, state, { books: [].concat(_toConsumableArray(action.payload)) });
+    case "POST_BOOK":
+      // let books = state.books.concat(action.payload);
+      // return {books};
+      return _extends({}, state, {
+        books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)),
+        msg: 'Saved! Click to continue',
+        style: 'success',
+        validation: 'success'
+      });
+      break;
+    case "POST_BOOK_REJECTED":
+      // let books = state.books.concat(action.payload);
+      // return {books};
+      return _extends({}, state, { msg: 'Pleas try again', style: 'danger', validation: 'error' });
+      break;
+    case "DELETE_BOOK":
+      // Create a copy of the current array of books
+      var currentBookToDelete = [].concat(_toConsumableArray(state.books));
+      // Determine index
+      var indexToDelete = currentBookToDelete.findIndex(function (book) {
+        return book._id.toString() === action.payload;
+      });
+      // use slice to remove the book at the specified indexToDelete
+      return { books: [].concat(_toConsumableArray(currentBookToDelete.slice(0, indexToDelete)), _toConsumableArray(currentBookToDelete.slice(indexToDelete + 1))) };
+      break;
+    case "UPDATE_BOOK":
+      // Create a copy of the current array of books
+      var currentBookToUpdate = [].concat(_toConsumableArray(state.books));
+      // Determine index
+      var indexToUpdate = currentBookToUpdate.findIndex(function (book) {
+        return book._id === action.payload._id;
+      });
+      var newBookToUpdate = _extends({}, currentBookToUpdate[indexToUpdate], {
+        title: action.payload.title
+        // use slice to remove the book at the specified indexToDelete
+      });return { books: [].concat(_toConsumableArray(currentBookToUpdate.slice(0, indexToUpdate)), [newBookToUpdate], _toConsumableArray(currentBookToUpdate.slice(indexToUpdate + 1))) };
+      break;
+
+    case "RESET_BUTTON":
+      // let books = state.books.concat(action.payload);
+      // return {books};
+      return _extends({}, state, { msg: null, style: 'primary', validation: nulls });
+      break;
+
+  }
+  return state;
+}
+
+/***/ }),
+/* 424 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(34);
+
+var _redux = __webpack_require__(23);
+
+var _recipeActions = __webpack_require__(422);
+
+var _reactBootstrap = __webpack_require__(49);
+
+var _cuisineType = __webpack_require__(417);
+
+var _cuisineType2 = _interopRequireDefault(_cuisineType);
+
+var _recipeForm = __webpack_require__(187);
+
+var _recipeForm2 = _interopRequireDefault(_recipeForm);
+
+var _cart = __webpack_require__(188);
+
+var _cart2 = _interopRequireDefault(_cart);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var RecipesList = function (_React$Component) {
+  _inherits(RecipesList, _React$Component);
+
+  function RecipesList() {
+    _classCallCheck(this, RecipesList);
+
+    return _possibleConstructorReturn(this, (RecipesList.__proto__ || Object.getPrototypeOf(RecipesList)).apply(this, arguments));
+  }
+
+  _createClass(RecipesList, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      // Dispatch an action
+      this.props.getBooks();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var recipesList = this.props.books.map(function (booksArr) {
+        return _react2.default.createElement(
+          _reactBootstrap.Col,
+          { xs: 12, sm: 6, md: 4, key: booksArr._id },
+          _react2.default.createElement(_cuisineType2.default, { className: 'cuisineWell',
+            _id: booksArr._id,
+            title: booksArr.title,
+            description: booksArr.description,
+            image: booksArr.image,
+            price: booksArr.price
+          })
+        );
+      });
+      return _react2.default.createElement(
+        _reactBootstrap.Grid,
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Carousel,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Carousel.Item,
+              null,
+              _react2.default.createElement('img', { width: 900, height: 500, alt: '900x500', src: '/images/carousel/chinese-kitchen.jpg' }),
+              _react2.default.createElement(
+                _reactBootstrap.Carousel.Caption,
+                null,
+                _react2.default.createElement(
+                  'h3',
+                  null,
+                  'Second slide label'
+                ),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.Carousel.Item,
+              null,
+              _react2.default.createElement('img', { width: 900, height: 500, alt: '900x500', src: '/images/carousel/kadahi.jpg' }),
+              _react2.default.createElement(
+                _reactBootstrap.Carousel.Caption,
+                null,
+                _react2.default.createElement(
+                  'h3',
+                  null,
+                  'Third slide label'
+                ),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.Carousel.Item,
+              null,
+              _react2.default.createElement('img', { width: 900, height: 500, alt: '900x500', src: '/images/carousel/traditional_indian_kitchen_by_the_neolith.jpg' }),
+              _react2.default.createElement(
+                _reactBootstrap.Carousel.Caption,
+                null,
+                _react2.default.createElement(
+                  'h3',
+                  null,
+                  'Second slide label'
+                ),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                )
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { marginTop: '15px' } },
+          _react2.default.createElement(_cart2.default, null)
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          null,
+          recipesList
+        )
+      );
+    }
+  }]);
+
+  return RecipesList;
+}(_react2.default.Component);
+
+function mapStateToProps(state) {
+  return {
+    books: state.books.books
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return (0, _redux.bindActionCreators)({ getBooks: _recipeActions.getBooks }, dispatch);
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RecipesList);
 
 /***/ })
 /******/ ]);

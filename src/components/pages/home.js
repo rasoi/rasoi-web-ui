@@ -2,20 +2,20 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import {getBooks} from '../../actions/booksActions'
+import {getBooks} from '../../actions/recipeActions'
 import {Carousel, Grid, Col, Row, Button} from 'react-bootstrap'
 
 import CuisineType from './cuisineType';
 import RecipeForm from './recipeForm';
 import Cart from './cart';
 
- class BooksList extends React.Component{
+ class RecipesList extends React.Component{
    componentDidMount(){
      // Dispatch an action
      this.props.getBooks();
    }
    render(){
-     const booksList = this.props.books.map(function(booksArr){
+     const recipesList = this.props.books.map(function(booksArr){
        return(
          <Col xs={12} sm={6} md={4} key={booksArr._id}>
           <CuisineType className='cuisineWell'
@@ -59,7 +59,7 @@ import Cart from './cart';
           <Cart />
         </Row>
         <Row>
-          {booksList}
+          {recipesList}
         </Row>
        </Grid>
      )
@@ -76,4 +76,4 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({getBooks:getBooks}, dispatch)
 }
 
- export default connect(mapStateToProps, mapDispatchToProps)(BooksList);
+ export default connect(mapStateToProps, mapDispatchToProps)(RecipesList);

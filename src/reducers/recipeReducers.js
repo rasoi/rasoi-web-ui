@@ -1,5 +1,5 @@
 "use strict"
-export function booksReducers(state={books: []
+export function recipeReducers(state={books: []
   }, action){
   switch(action.type){
     case "GET_BOOK":
